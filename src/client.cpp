@@ -49,25 +49,31 @@ int main()
 
     cout<<"Connected\n"<<endl; 
 
-    if (send(sock, &number, sizeof(int), 0) < 0) { 
+    while (number<10) 
+    {
 
-        cout<<"Send failed"<<endl; 
+        if (send(sock, &number, sizeof(int), 0) < 0) { 
 
-        return 1; 
+            cout<<"Send failed"<<endl; 
 
-    } 
+            return 1; 
 
-    // Receive a reply from the server 
+        } 
 
-    if (recv(sock, &server_reply, sizeof(int), 0) < 0) { 
+        // Receive a reply from the server 
 
-        cout<<"recv failed"<<endl; 
+        if (recv(sock, &server_reply, sizeof(int), 0) < 0) { 
 
-        return 0; 
+            cout<<"recv failed"<<endl; 
 
-    } 
+            return 0; 
 
-    cout<<server_reply<<endl;
+        } 
+
+        cout<<server_reply<<endl;
+        number=server_reply+1;
+
+    }  
 
     // close the socket 
 

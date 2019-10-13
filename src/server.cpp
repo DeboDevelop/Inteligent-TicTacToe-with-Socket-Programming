@@ -76,15 +76,21 @@ int main()
 
     cout<<"Connection accepted"<<endl; 
 
-    // Receive a message from client 
+    // Receive a message from client
 
-    while ((read_size = recv(client_sock, &message, sizeof(int), 0)) > 0) { 
+    while (1) {
 
-        message++;
- 
-        write(client_sock, &message, sizeof(int)); 
+        while ((read_size = recv(client_sock, &message, sizeof(int), 0)) > 0) { 
 
-    } 
+            message++;
+     
+            write(client_sock, &message, sizeof(int)); 
+
+        }
+        if (message==10)
+            break;
+
+    }
 
     if (read_size == 0) { 
 
