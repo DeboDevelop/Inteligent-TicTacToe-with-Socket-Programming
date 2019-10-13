@@ -4,6 +4,10 @@
 #include <sys/socket.h> 
 #include <unistd.h> 
 
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
 int main() 
 { 
 
@@ -21,11 +25,11 @@ int main()
 
     if (sock == -1) { 
 
-        printf("Could not create socket"); 
+        cout<<"Could not create socket"<<endl; 
 
     } 
 
-    puts("Socket created"); 
+    cout<<"Socket created"<<endl; 
 
     server.sin_addr.s_addr = inet_addr("127.0.0.1"); 
 
@@ -43,11 +47,11 @@ int main()
 
     } 
 
-    puts("Connected\n"); 
+    cout<<"Connected\n"<<endl; 
 
     if (send(sock, &number, sizeof(int), 0) < 0) { 
 
-        puts("Send failed"); 
+        cout<<"Send failed"<<endl; 
 
         return 1; 
 
@@ -57,13 +61,13 @@ int main()
 
     if (recv(sock, &server_reply, sizeof(int), 0) < 0) { 
 
-        puts("recv failed"); 
+        cout<<"recv failed"<<endl; 
 
         return 0; 
 
     } 
 
-    printf("%d\n", server_reply);
+    cout<<server_reply<<endl;
 
     // close the socket 
 

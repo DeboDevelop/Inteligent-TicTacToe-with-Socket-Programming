@@ -2,7 +2,11 @@
 #include <stdio.h> 
 #include <string.h> 
 #include <sys/socket.h> 
-#include <unistd.h> 
+#include <unistd.h>
+
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
 
 int main() 
 { 
@@ -19,11 +23,11 @@ int main()
 
     if (socket_desc == -1) { 
 
-        printf("Could not create socket"); 
+        cout<<"Could not create socket"<<endl; 
 
     } 
 
-    puts("Socket created");
+    cout<<"Socket created"<<endl;
 
     // Prepare the sockaddr_in structure 
 
@@ -45,7 +49,7 @@ int main()
 
     } 
 
-    puts("bind done"); 
+    cout<<"bind done"<<endl; 
 
 
     // lsiten to the socket 
@@ -53,7 +57,7 @@ int main()
     listen(socket_desc, 3); 
 
 
-    puts("Waiting for incoming connections..."); 
+    cout<<"Waiting for incoming connections..."<<endl; 
 
     c = sizeof(struct sockaddr_in); 
 
@@ -70,7 +74,7 @@ int main()
 
     } 
 
-    puts("Connection accepted"); 
+    cout<<"Connection accepted"<<endl; 
 
     // Receive a message from client 
 
@@ -84,7 +88,7 @@ int main()
 
     if (read_size == 0) { 
 
-        puts("Client disconnected"); 
+        cout<<"Client disconnected"<<endl; 
 
     } 
 
