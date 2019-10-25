@@ -8,6 +8,62 @@
 #include <stdlib.h>
 using namespace std;
 
+char board[10]={'O','1','2','3','4','5','6','7','8','9'};
+int player, input;
+
+void input_board()
+{
+    while(1)
+    {
+        cout<<"Enter a number\n";
+        cin>>input;
+
+        if (input == 1 && board[1] == '1')
+            {
+                board[1] = board[0]; break;
+            }
+        else if (input == 2 && board[2] == '2')
+            {
+                board[2] = board[0]; break;
+            }
+        else if (input == 3 && board[3] == '3')
+            {
+                board[3] = board[0]; break;
+            }
+        else if (input == 4 && board[4] == '4')
+            {
+                board[4] = board[0]; break;
+            }
+        else if (input == 5 && board[5] == '5')
+            {
+                board[5] = board[0]; break;
+            }
+        else if (input == 6 && board[6] == '6')
+            {
+                board[6] = board[0]; break;
+            }
+        else if (input == 7 && board[7] == '7')
+            {
+                board[7] = board[0]; break;
+            }
+        else if (input == 8 && board[8] == '8')
+            {
+                board[8] = board[0]; break;
+            }
+        else if (input == 9 && board[9] == '9')
+            {
+                board[9] = board[0]; break;
+            }
+        else
+            {
+                cout<<"Invalid move ";
+                cin.ignore();
+                cin.get();
+            }
+    }
+
+}
+
 int main() 
 { 
 
@@ -15,7 +71,7 @@ int main()
 
     struct sockaddr_in server, client; 
 
-    int message, i; 
+    int input_received, i; 
 
     // Create socket 
 
@@ -35,7 +91,7 @@ int main()
 
     server.sin_addr.s_addr = INADDR_ANY; 
 
-    server.sin_port = htons(8880); 
+    server.sin_port = htons(9000); 
 
     // Bind the socket 
 
@@ -77,19 +133,24 @@ int main()
     cout<<"Connection accepted"<<endl; 
 
     // Receive a message from client
+    int flag=0;
+    while (flag==0) {
 
-    while (1) {
+        while ((read_size = recv(client_sock, &input_received, sizeof(int), 0)) > 0) { 
 
-        while ((read_size = recv(client_sock, &message, sizeof(int), 0)) > 0) { 
-
-            message++;
+            if(input_received!=-1||input_received!=-2)
+                board[input_received]='X';
+            if(input_received==-2) {
+                close(socket_desc);
+                return 0;
+                flag=1;
+                break;
+            }
+            input_board();
      
-            write(client_sock, &message, sizeof(int)); 
+            write(client_sock, &input, sizeof(int)); 
 
         }
-        if (message==10)
-            break;
-
     }
 
     if (read_size == 0) { 
